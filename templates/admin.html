@@ -1,0 +1,37 @@
+<template name="admin">
+    <div class="container-fluid">
+        <div class="col-md-4">
+            <form name="addSubject">
+                <h1>Add Subject</h1>
+                <div class="form-group">
+                    <label for="subject">Enter Subject</label>
+                    <input type="text" id="subject" placeholder="Enter subject"/>
+                </div>
+                <input type="submit" id="submit" />
+            </form>
+        </div>
+        <div class="col-md-4">
+            <table class="table">
+                <thead>
+                    <th>
+                        Subjects
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        {{#each subjects}}
+                            {{> subject}}
+                        {{/each}}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
+
+<template name="subject">
+    <tr>
+       <td> {{_id}} </td> 
+    </tr>
+    
+</template>

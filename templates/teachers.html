@@ -1,0 +1,86 @@
+
+<template name="teacher_table">
+  
+    {{> navbar}}
+    <div class="container-fluid">
+        <div class="panel panel-default" id="addTeacher">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add New Teacher</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="addId">Staff code: </label>
+                        <input type="text" name="addId" id="addId" 
+                        class="form-control" placeholder="Enter staff code" 
+                        required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="addName">Name: </label>
+                        <input type="text" name="addName" id="addName" 
+                        class="form-control" placeholder="Enter name" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="addPeriods">Periods: </label>
+                        <input type="number" name="addPeriods" id="addPeriods"
+                        class="form-control centered" min=1 max=60 value="0" 
+                        required/>
+                    </div>
+                    <input type="submit" name="save" value="Save" class="form-control"/>
+                    <div class="alert alert-warning alert-dismissible hidden" role="alert" id="alert">
+                        <button type="button" class="close" aria-label="Close" id="closeAlert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        id
+                    </div>
+                </form> 
+
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Teachers</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                          <th>Code</th>
+                          <th>Name</th>
+                          <th>Periods (per fortnight)</th>
+                          <th>Observations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if Template.subscriptionsReady}}
+                          {{#each teachers}}
+                            {{> teacher}}
+                          {{/each}}
+                        {{/if}}
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+    </div>
+</template>
+<!--*********************************teacher*********************************-->
+
+<template name="teacher">
+  <tr>
+    <td id="_id" disabled="disabled">{{_id}}</td>
+    <td class="editable" id="name" data-toggle="tooltip" title="Double-click to edit">
+      {{name}}</td>
+    <td class="editable centered" id="periods" >{{periods}}</td>
+    <td class="centered">
+        <span class="badge">{{obsCount}}</span>
+    </td>
+    <td>
+      <button>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true" id="delete">
+        
+        </span>
+      </button>
+    </td>
+    <td><button id="addObs" class="btn btn-default">Add Obs</button></td>
+  </tr>
+</template>
