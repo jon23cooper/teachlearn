@@ -28,6 +28,7 @@ if (Meteor.isClient){
             return Subjects.find({}, {sort:{_id:1}});
         },
 
+
     });
 
     Template.teacherObservation.events({
