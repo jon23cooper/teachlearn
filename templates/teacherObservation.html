@@ -44,22 +44,24 @@
             Lesson Observations for {{name}} : {{_id}}
           </h3>
         </div>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <td>Date</td>
-              <td>Observer(s)</td>
-              <td>Subject</td>
-              <td>Year Group</td>
-              <td>Grade</td>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each observations}}
-              {{> observation}}
-            {{/each}}
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td>Date</td>
+                <td>Observer(s)</td>
+                <td>Subject</td>
+                <td>Year Group</td>
+                <td>Grade</td>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each observations}}
+                {{> observation}}
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
     </div>
     {{/each }}
   </div>
@@ -71,7 +73,7 @@
 
 <template name="observation">
   <tr>
-    <td>{{grade}}</td>
+    <td>{{date}}</td>
     <td>{{observer}}</td>
     <td>{{subject}}</td>
     <td>{{yearGroup}}</td>
