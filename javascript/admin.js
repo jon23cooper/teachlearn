@@ -13,11 +13,16 @@ if (Meteor.isClient){
     })
     
     Template.admin.events({
-       "submit form": function(event){
+        "submit form": function(event){
            event.preventDefault();;
-           console.log(document.getElementById("subject").value);
-           Meteor.call("addSubject", document.getElementById("subject").value);
-       } 
+           Meteor.call("addSubject", event.target.subject.value);
+            event.target.subject.value="";
+        },
+        
+        "click #deleteSubject": function(event){
+            Meteor.call("deleteSubject", this._id);
+        }
+        
     });
 
 }

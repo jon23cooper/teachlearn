@@ -1,42 +1,49 @@
-
-<template name="teacher_table">
-  
+<template name="teachers">
+  <div class="container-fluid">
     {{> navbar}}
-    <div class="container-fluid">
-        <div class="panel panel-default" id="addTeacher">
-            <div class="panel-heading">
-                <h3 class="panel-title">Add New Teacher</h3>
-            </div>
-            <div class="panel-body">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label for="addId">Staff code: </label>
-                        <input type="text" name="addId" id="addId" 
-                        class="form-control" placeholder="Enter staff code" 
-                        required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="addName">Name: </label>
-                        <input type="text" name="addName" id="addName" 
-                        class="form-control" placeholder="Enter name" required/>
-                    </div>
-                    <div class="form-group">
-                        <label for="addPeriods">Periods: </label>
-                        <input type="number" name="addPeriods" id="addPeriods"
-                        class="form-control centered" min=1 max=60 value="0" 
-                        required/>
-                    </div>
-                    <input type="submit" name="save" value="Save" class="form-control"/>
-                    <div class="alert alert-warning alert-dismissible hidden" role="alert" id="alert">
-                        <button type="button" class="close" aria-label="Close" id="closeAlert">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        id
-                    </div>
-                </form> 
+    {{> addTeacher}}
+    {{> listTeachers}}
+  </div>
+</template>
 
-            </div>
+<template name="addTeacher">
+  <div class="panel panel-default" id="addTeacher">
+    <div class="panel-heading">
+      <h3 class="panel-title">Add New Teacher</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="addId">Staff code: </label>
+          <input type="text" name="addId" id="addId" 
+          class="form-control" placeholder="Enter staff code" 
+          required/>
         </div>
+        <div class="form-group">
+          <label for="addName">Name: </label>
+          <input type="text" name="addName" id="addName" 
+          class="form-control" placeholder="Enter name" required/>
+        </div>
+        <div class="form-group">
+          <label for="addPeriods">Periods: </label>
+          <input type="number" name="addPeriods" id="addPeriods"
+          class="form-control centered" min=1 max=60 value="0" 
+          required/>
+        </div>
+        <input type="submit" name="save" value="Save" class="form-control"/>
+        <div class="alert alert-warning alert-dismissible hidden" role="alert" id="alert">
+          <button type="button" class="close" aria-label="Close" id="closeAlert">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <span id="alertText"></span>
+        </div>
+      </form> 
+    </div>
+  </div>
+</template>
+
+<template name="listTeachers">
+    <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Teachers</h3>
@@ -49,6 +56,14 @@
                           <th>Name</th>
                           <th>Periods (per fortnight)</th>
                           <th>Observations</th>
+                          <th class="centered">
+                            <button class="hidden">
+                              <span class="glyphicon glyphicon-remove" aria-hidden="true" id="delete"></span>
+                            </button>
+                          </th>
+                          <th>
+
+                          </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,11 +89,9 @@
     <td class="centered">
         <span class="badge">{{obsCount}}</span>
     </td>
-    <td>
+    <td class="centered">
       <button>
-        <span class="glyphicon glyphicon-remove" aria-hidden="true" id="delete">
-        
-        </span>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true" id="delete"></span>
       </button>
     </td>
     <td><button id="addObs" class="btn btn-default">Add Obs</button></td>

@@ -1,37 +1,39 @@
 <template name="admin">
     <div class="container-fluid">
-        <div class="col-md-4">
-            <form name="addSubject">
-                <h1>Add Subject</h1>
-                <div class="form-group">
-                    <label for="subject">Enter Subject</label>
-                    <input type="text" id="subject" placeholder="Enter subject"/>
-                </div>
-                <input type="submit" id="submit" />
-            </form>
+        {{> navbar}}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add Subject</h3>
+            </div>
+            <div class="panel-body">
+                <form name="addSubject" class="form-inline">
+                    <div class="form-group">
+                        <label for="subject">Enter Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Enter subject"/>
+                    </div>
+                    <input type="submit" id="submit" name="Add"/>
+                </form>
+            </div>
         </div>
-        <div class="col-md-4">
-            <table class="table">
-                <thead>
-                    <th>
-                        Subjects
-                    </th>
-                </thead>
-                <tbody>
-                    <tr>
-                        {{#each subjects}}
-                            {{> subject}}
-                        {{/each}}
-                    </tr>
-                </tbody>
-            </table>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Subjects</h3>
+            </div>
+            <div class="panel-body">
+                {{#each subjects}}
+                    {{> subject}}
+                {{/each}}
+            </div>
         </div>
     </div>
 </template>
 
 <template name="subject">
-    <tr>
-       <td> {{_id}} </td> 
-    </tr>
-    
+    <h3 class="block">
+        <span class="label label-default">
+            <span> {{_id}} </span>
+            <a class="alert-link" id="deleteSubject"><i class="remove glyphicon glyphicon-remove-sign"></i></a>
+        </span>
+    </h3>   
 </template>

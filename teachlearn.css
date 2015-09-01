@@ -18,3 +18,13 @@ h1 {
     text-align: center;
 }
 
+a.alert-link {
+  color: white;
+  cursor: pointer;
+}
+
+h3.block{
+  align: center;
+  width: auto;
+  display: inline-block;
+}

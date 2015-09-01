@@ -8,9 +8,11 @@
 
 // (Global) Before hooks for any route
 // only allow access to login page for non-logged in users
+
+
 Router.onBeforeAction(function() {
     if (!Meteor.userId()){
-        this.render('home');
+        this.render('login');
         console.log("Not logged in");
     } else {
         console.log("Logged in as:" + Meteor.userId())
@@ -18,11 +20,19 @@ Router.onBeforeAction(function() {
     }
 });
 
+
+
 /************* ROUTES *********************************************************/
 
+//////Creation of accounts route////////
+// uncomment to use
+//Router.route("/secret", {
+//    template: 'createUser',
+//})
+///////////////////////////////////////
  
  Router.route("/",{
-   template: 'home'
+   template: 'main'
  });
  
  Router.route("/admin", {
@@ -37,7 +47,7 @@ Router.onBeforeAction(function() {
  })
  
  Router.route("/teacher",{
-   template: 'teacher_table'
+   template: 'teachers'
  });
  
  Router.route("/addObservation/:id", {
