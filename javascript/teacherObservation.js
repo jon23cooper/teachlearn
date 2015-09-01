@@ -1,12 +1,12 @@
 if (Meteor.isClient){
-    
-    Template.addObservation.onCreated(function(){
+
+    Template.teacherObservation.onCreated(function(){
         this.subscribe("teacherAndSubjects");
 
     });
 
-    Template.addObservation.onRendered(function(){
-        
+    Template.teacherObservation.onRendered(function(){
+
         lessonGrades=["1a", "1b", "1c", "2a", "2b", "2c", "3a", "3b", "3c", "4a", "4b", "4c"];
         var fragment = document.createDocumentFragment();
         lessonGrades.forEach(function(grade, index){
@@ -20,17 +20,17 @@ if (Meteor.isClient){
 
     });
 
-    Template.addObservation.helpers({
+    Template.teacherObservation.helpers({
         teacher: function(){
             return Teachers.find({});
         },
         subjects: function(){
             return Subjects.find({}, {sort:{_id:1}});
         },
-        
+
     });
-    
-    Template.addObservation.events({
+
+    Template.teacherObservation.events({
 
         "submit form": function(event){
             event.preventDefault();
@@ -41,15 +41,15 @@ if (Meteor.isClient){
             var yearGroup = event.target.yearGroup.value;
             var grade = event.target.gradeSelect.value;
             var observation = {
-                date: obsDate, 
-                observer: observer, 
-                subject: subject, 
+                date: obsDate,
+                observer: observer,
+                subject: subject,
                 yearGroup: yearGroup,
                 grade: grade
             }
             Meteor.call("addObservation", teacherId, observation);
         }
     });
-    
- 
+
+
 }

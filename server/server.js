@@ -2,33 +2,33 @@
 
 if (Meteor.isServer){
 	//change if you want to create a new user
-	
+
 	Accounts.config({
-		forbidClientAccountCreation: true,
-		//forbidClientAccountCreation : false,
+		//forbidClientAccountCreation: true,
+		forbidClientAccountCreation : false,
 	});
-	
+
 	Meteor.publish("subjects", function(){
 		return Subjects.find({});
 	});
-	
+
 	Meteor.publish("teachers", function(){
 		return Teachers.find({});
 	});
-	
+
 	Meteor.publish("teacher", function(teacherId){
 		//console.log(this.params);
-		
+
 		return Teachers.find({_id: teacherId});
 	});
-	
+
 	Meteor.publish("teacherAndSubjects", function(teacherId){
 		return [
 			Teachers.find({_id: teacherId}),
 			Subjects.find({})
 			];
 	});
-	
+
 }
 
 
@@ -41,16 +41,16 @@ Meteor.methods({
 		} else {
 			Teachers.insert(teacher);
 		}
-	}, 
-	
+	},
+
 	deleteTeacher: function(teacherId){
 		if (!Meteor.userId()){
 			throw new Meteor.Error("not authorized");
 		} else {
 			Teachers.remove(teacherId);
 		}
-	}, 
-	
+	},
+
 	updateTeacher: function(teacherId, attr, value){
 		console.log("update");
 		if (!Meteor.userId()){
@@ -61,9 +61,9 @@ Meteor.methods({
 			selector[attr] = value;
 			Teachers.update(teacherId, {$set: selector});
 		}
-		
-	}, 
-	
+
+	},
+
 	updatePeriods: function(teacherId, value){
 		if (!Meteor.userId()){
 			throw new Meteor.Error("not authorized");
@@ -71,7 +71,7 @@ Meteor.methods({
 			Teachers.update(teacherId, {$set: {periods: value}});
 		}
 	},
-	
+
 	addSubject: function(subject){
 		if (!Meteor.userId()){
 			throw new Meteor.Error("not authorized");
@@ -79,7 +79,7 @@ Meteor.methods({
 			Subjects.insert({_id: subject});
 		}
 	},
-	
+
 	deleteSubject: function(subject){
 		if (!Meteor.userId()){
 			throw new Meteor.Error("not authorized");
@@ -87,7 +87,7 @@ Meteor.methods({
 			Subjects.remove({_id: subject});
 		}
 	},
-	
+
 	addObservation: function(teacherId, observation){
 		if (!Meteor.userId()){
 			throw new Meteor.Error("not authorized");

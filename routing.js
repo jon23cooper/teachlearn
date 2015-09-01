@@ -9,7 +9,7 @@
 // (Global) Before hooks for any route
 // only allow access to login page for non-logged in users
 
-
+/*
 Router.onBeforeAction(function() {
     if (!Meteor.userId()){
         this.render('login');
@@ -20,40 +20,41 @@ Router.onBeforeAction(function() {
     }
 });
 
-
+*/
 
 /************* ROUTES *********************************************************/
 
 //////Creation of accounts route////////
-// uncomment to use
-//Router.route("/secret", {
-//    template: 'createUser',
-//})
+// Uncomment to use
+// also update accounts.config to allow user creation
+Router.route("/secret", {
+  template: 'createUser',
+});
 ///////////////////////////////////////
- 
+
  Router.route("/",{
    template: 'main'
  });
- 
+
  Router.route("/admin", {
      template: 'admin',
      waitOn: function(){
          return Meteor.subscribe("subjects");
      }
  });
- 
+
  Router.route("/main",{
    template: 'main'
  })
- 
+
  Router.route("/teacher",{
    template: 'teachers'
  });
- 
+
  Router.route("/addObservation/:id", {
-     template: "addObservation",
+     template: "teacherObservation",
      waitOn: function(){
-        return Meteor.subscribe("teacherAndSubjects", this.params.id); 
+        return Meteor.subscribe("teacherAndSubjects", this.params.id);
      }
  });
 
