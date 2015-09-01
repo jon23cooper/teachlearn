@@ -43,7 +43,7 @@ if (Meteor.isClient) {
   Template.main.events({
     "click #teacherBtn": function(event){
       event.preventDefault();
-      Router.go('teacher');
+      Router.go('teachers');
     }
   });
   

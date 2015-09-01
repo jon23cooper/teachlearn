@@ -1,18 +1,18 @@
 
 if (Meteor.isClient){
 
-    Template.admin.onCreated(function(){
+    Template.subjects.onCreated(function(){
         this.subscribe("subjects");
     });
     
     
-    Template.admin.helpers({
+    Template.subjects.helpers({
         subjects: function(){
             return Subjects.find({}, {sort:{_id: 1}});
         }
     })
     
-    Template.admin.events({
+    Template.subjects.events({
         "submit form": function(event){
            event.preventDefault();;
            Meteor.call("addSubject", event.target.subject.value);

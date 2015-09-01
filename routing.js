@@ -9,7 +9,7 @@
 // (Global) Before hooks for any route
 // only allow access to login page for non-logged in users
 
-/*
+
 Router.onBeforeAction(function() {
     if (!Meteor.userId()){
         this.render('login');
@@ -20,7 +20,7 @@ Router.onBeforeAction(function() {
     }
 });
 
-*/
+
 
 /************* ROUTES *********************************************************/
 
@@ -36,8 +36,8 @@ Router.route("/secret", {
    template: 'main'
  });
 
- Router.route("/admin", {
-     template: 'admin',
+ Router.route("/subjects", {
+     template: 'subjects',
      waitOn: function(){
          return Meteor.subscribe("subjects");
      }
@@ -45,9 +45,13 @@ Router.route("/secret", {
 
  Router.route("/main",{
    template: 'main'
- })
+ });
 
- Router.route("/teacher",{
+Router.route("/observations", {
+  template: 'observations',
+});
+
+ Router.route("/teachers",{
    template: 'teachers'
  });
 
