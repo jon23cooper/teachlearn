@@ -1,3 +1,32 @@
 <template name="observations">
-  Observations content goes here
+  {{> navbar}}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"> Lesson Observations </h3>
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <th>Code</th>
+        <th>Date</th>
+        <th>Subject</th>
+        <th>Year Group</th>
+        <th>Grade</th>
+      </thead>
+      <tbody>
+        {{#each observations}}
+          {{> eachObservation}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="eachObservation">
+  <tr>
+    <td>{{teacher}}</td>
+    <td>{{obs.date}}</td>
+    <td>{{obs.subject}}</td>
+    <td>{{obs.yearGroup}}</td>
+    <td>{{obs.grade}}</td>
+  </tr>
 </template>
