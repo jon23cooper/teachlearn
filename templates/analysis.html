@@ -14,28 +14,29 @@
             <th>4</th>
           </thead>
           <tbody>
-            <tr>
-              {{#each results}}
-              <td>{{this.subject}}</td>
-              {{/each}}
-            </tr>
             {{#each observations}}
             <tr>
-              <td>{{this.subject}}</td>
-              <td>{{this.count}}</td>
-              <td>{{this.periodTotal}}</td>
-              <td>{{this.grades.O}}</td>
-              <td>{{this.gradesPct.O}}</td>
-              <td>{{this.grades.G}}</td>
-              <td>{{this.gradesPct.G}}</td>
-              <td>{{this.grades.RI}}</td>
-              <td>{{this.grades.I}}</td>
+              <td>{{subject}}</td>
+              <td>{{count}}</td>
+              <td>{{gradesPct.O}}%</td>
+              <td>{{gradesPct.G}}%</td>
+              <td>{{gradesPct.RI}}%</td>
+              <td>{{gradesPct.I}}%</td>
             </tr>
-              {{/each}}
+            {{/each}}
 
           </tbody>
         </table>
       </div><!-- /table-responsive -->
     </div><!-- /col-md-10 -->
   </div><!-- /row -->
+</template>
+
+<template name="analysis">
+  <td>{{subject}}</td>
+  <td>{{count}}</td>
+  <td>{{gradesPct.O}}%</td>
+  <td>{{gradesPct.G}}%</td>
+  <td>{{gradesPct.RI}}%</td>
+  <td>{{gradesPct.I}}%</td>
 </template>

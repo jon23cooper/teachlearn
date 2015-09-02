@@ -41,7 +41,7 @@ if (Meteor.isClient){
         });
         for (var grd in subjectResult.grades){
           if (subjectResult.periodTotal != 0){
-            subjectResult.gradesPct[grd] = (subjectResult.grades[grd]/subjectResult.periodTotal) * 100
+            subjectResult.gradesPct[grd] = Math.round((subjectResult.grades[grd]/subjectResult.periodTotal) * 100);
           }
         }
         results.push(subjectResult);
