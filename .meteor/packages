@@ -8,3 +8,4 @@ meteor-platform
 iron:router
 accounts-password
 twbs:bootstrap
+reactive-var

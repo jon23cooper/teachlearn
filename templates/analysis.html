@@ -1,0 +1,41 @@
+<template name="summary">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class= "col-md-10">
+      {{> navbar}}
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <th>Subject</th>
+            <th>Obs.</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+          </thead>
+          <tbody>
+            <tr>
+              {{#each results}}
+              <td>{{this.subject}}</td>
+              {{/each}}
+            </tr>
+            {{#each observations}}
+            <tr>
+              <td>{{this.subject}}</td>
+              <td>{{this.count}}</td>
+              <td>{{this.periodTotal}}</td>
+              <td>{{this.grades.O}}</td>
+              <td>{{this.gradesPct.O}}</td>
+              <td>{{this.grades.G}}</td>
+              <td>{{this.gradesPct.G}}</td>
+              <td>{{this.grades.RI}}</td>
+              <td>{{this.grades.I}}</td>
+            </tr>
+              {{/each}}
+
+          </tbody>
+        </table>
+      </div><!-- /table-responsive -->
+    </div><!-- /col-md-10 -->
+  </div><!-- /row -->
+</template>

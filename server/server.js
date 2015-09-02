@@ -29,6 +29,13 @@ if (Meteor.isServer){
 			];
 	});
 
+  Meteor.publish("observationsAndSubjects", function(){
+     return [
+       Teachers.find({},{fields:{observations: 1, periods: 1}}),
+       Subjects.find({})
+     ]
+  });
+
 }
 
 

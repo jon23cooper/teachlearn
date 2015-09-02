@@ -27,14 +27,18 @@ Router.onBeforeAction(function() {
 //////Creation of accounts route////////
 // Uncomment to use
 // also update accounts.config to allow user creation
-Router.route("/secret", {
-  template: 'createUser',
-});
+//Router.route("/secret", {
+//  template: 'createUser',
+//});
 ///////////////////////////////////////
 
  Router.route("/",{
    template: 'main'
  });
+
+Router.route("/analysis", {
+  template: 'summary'
+});
 
  Router.route("/subjects", {
      template: 'subjects',

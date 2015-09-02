@@ -1,24 +1,48 @@
 <template name="observations">
+  <div class="row">
+    <div class= "col-md-1"></div>
+    <div class= "col-md-10">
   {{> navbar}}
+  Filter: {{filter}}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title"> Lesson Observations </h3>
     </div>
-    <table class="table table-hover">
-      <thead>
-        <th>Code</th>
-        <th>Date</th>
-        <th>Subject</th>
-        <th>Year Group</th>
-        <th>Grade</th>
-      </thead>
-      <tbody>
-        {{#each observations}}
-          {{> eachObservation}}
-        {{/each}}
-      </tbody>
-    </table>
+
+    <div class="table-responsive">
+      <table class="table table-hover col-md-8">
+        <thead>
+          <tr>
+            <th class=col-md-1>Code</th>
+            <th class= "col-md-2">Date</th>
+            <th class="col-md-2">Subject</th>
+            <th class="col-md-1">Year Group</th>
+            <th class="col-md-1">Grade</th>
+          </tr>
+          <tr>
+            <td>
+              <div class="input-group">
+                <input type="text" class="form-control" id="idFilter" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" id="searchId">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                  </button>
+                </span>
+              </div><!-- /input-group -->
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each observations}}
+            {{> eachObservation}}
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
+  </div>
+  </div>
+
 </template>
 
 <template name="eachObservation">
