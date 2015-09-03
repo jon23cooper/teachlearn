@@ -46,6 +46,9 @@ Meteor.methods({
 		if (!Meteor.userId()){
 			throw new Meteor.Error("not authorized");
 		} else {
+			//make all teacher ids (SIMS Ids) uppercase
+			// because they should be!
+			teacher._id = teacher._id.toUpperCase();
 			Teachers.insert(teacher);
 		}
 	},

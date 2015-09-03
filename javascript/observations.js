@@ -17,7 +17,6 @@ if (Meteor.isClient){
       if (Template.instance().filter.get().length != 0){
         observations = observations.filter(
         function(value){
-          console.log("compare value.teacher: " + value.teacher + " with " + Template.instance().filter.get());
           return value.teacher == Template.instance().filter.get();
         });
       }
@@ -33,7 +32,7 @@ if (Meteor.isClient){
 
   Template.observations.events({
     "click #searchId": function(event, template){
-      template.filter.set($("#idFilter")[0].value);
+      template.filter.set($("#idFilter")[0].value.toUpperCase());
     }
   });
 }
