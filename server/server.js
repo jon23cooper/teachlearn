@@ -12,15 +12,21 @@ if (Meteor.isServer){
 		return Subjects.find({});
 	});
 
-	Meteor.publish("teachers", function(){
-		return Teachers.find({});
-	});
-
-	Meteor.publish("teacher", function(teacherId){
+  Meteor.publish("teacher", function(teacherId){
 		//console.log(this.params);
 
 		return Teachers.find({_id: teacherId});
 	});
+
+	Meteor.publish("teachers", function(){
+		return Teachers.find({});
+	});
+
+
+  Meteor.publish("teacher_ids", function(){
+    return Teachers.find({}, {fields:{_id: 1}});
+  });
+
 
 	Meteor.publish("teacherAndSubjects", function(teacherId){
 		return [

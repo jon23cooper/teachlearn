@@ -1,4 +1,4 @@
-If (Meteor.isClient){
+if (Meteor.isClient){
 
   Template.main.helpers({
 

@@ -2,6 +2,7 @@ if (Meteor.isClient){
 
   Template.observations.onCreated(function () {
 		this.subscribe('teachers');
+    searchTerm=new RegExp(".");
     this.filter = new ReactiveVar("");
 	});
 
@@ -17,7 +18,7 @@ if (Meteor.isClient){
       if (Template.instance().filter.get().length != 0){
         observations = observations.filter(
         function(value){
-          return value.teacher == Template.instance().filter.get();
+          return Template.instance().filter.get().test(value.teacher);
         });
       }
 
@@ -33,6 +34,10 @@ if (Meteor.isClient){
   Template.observations.events({
     "click #searchId": function(event, template){
       template.filter.set($("#idFilter")[0].value.toUpperCase());
+    },
+
+    "keyup #idFilter": function(event, template){
+      template.filter.set(new RegExp("^" + event.target.value.toUpperCase()));
     }
   });
 }

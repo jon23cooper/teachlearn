@@ -22,7 +22,7 @@ if (Meteor.isClient){
 
     Template.teacherObservation.helpers({
         teacher: function(){
-            return Teachers.find({});
+            return Teachers.find({_id: this.toString()});
         },
         subjects: function(){
             return Subjects.find({}, {sort:{_id:1}});

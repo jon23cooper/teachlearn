@@ -60,10 +60,14 @@ Router.route("/observations", {
  });
 
  Router.route("/addObservation/:id", {
-     template: "teacherObservation",
-     waitOn: function(){
-        return Meteor.subscribe("teacherAndSubjects", this.params.id);
-     }
+   name: 'addObservation',
+   template: "teacherObservation",
+   waitOn: function(){
+     return Meteor.subscribe("teacherAndSubjects", this.params.id);
+   },
+   data: function(){
+     return this.params.id;
+   }
  });
 
 /***************************** END ROUTES *************************************/

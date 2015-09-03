@@ -20,8 +20,20 @@
               <li class="active">
                 <a href="{{pathFor route='main'}}">Home</a>
               </li>
-              <li class="active">
-                <a href="{{pathFor route='observations'}}">Observations</a>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Observations <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{pathFor route='observations'}}">View</a></li>
+                  <li class="dropdown-submenu">
+                    <a href="#" tabindex="-1"> Add </a>
+                    <ul class="dropdown-menu">
+                      {{#each teacherIds}}
+                        {{> menuItem}}
+                      {{/each }}
+                    </ul>
+                  </li>
+                </ul>
+
               </li>
               <li class="active">
                 <a href="{{pathFor route='subjects'}}">Subjects</a>
@@ -38,4 +50,10 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
+</template>
+
+<template name="menuItem">
+  <li>
+    <a tabindex="-1" href="{{ pathFor 'addObservation' id= _id}}" > {{_id}} </a>
+  </li>
 </template>
