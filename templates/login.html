@@ -46,3 +46,25 @@
 		</div>
 	</div>
 </template>
+
+<template name='changePwd'>
+  	<h1>Welcome to Lesson Observation Recorder</h1>
+	<div class="panel panel-primary login">
+		<div class="panel-heading">
+			<h3 class="panel-title">Change Password</h3>
+		</div>
+		<div class="panel-body">
+			<form name="changePwd">
+				<div class="form-group">
+					<label for="currentPwd">Current Password:</label>
+					<input type="password" class="form-control" id="current" name="current" placeholder="Enter current password" required />
+				</div>
+				<div class="form-group">
+					<label for="newPassword">Password:</label>
+					<input type="password" class="form-control" id="new1" name="new1" placeholder="Enter new password" required />
+				</div>
+				<input type="submit" value="Create"/>
+			</form>
+		</div>
+	</div>
+</template>

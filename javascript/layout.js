@@ -10,7 +10,7 @@ if (Meteor.isClient) {
 
   Accounts.config({
     forbidClientAccountCreation : true,
-    //forbidClientAccountCreation: false;
+    //forbidClientAccountCreation: false,
   });
 
   /****************************  TEMPLATES JS  ********************************/

@@ -4,18 +4,23 @@ if (Meteor.isClient) {
 		"submit form": function(event){
 			event.preventDefault();
 			Meteor.loginWithPassword(
-				{username: event.target.username.value}, 
-				event.target.password.value, 
+				{username: event.target.username.value},
+				event.target.password.value,
 				function(error){
 					if (error){
 						$("#hider").removeClass("hidden")
 						console.log(error.reason);
 					} else {
-						Router.go('main');
+            console.log('Meteor.user()');
+            if (Meteor.user().profile.forcePwdChange){
+              Router.go('changePwd');
+            } else {
+						  Router.go('main');
+            }
 					}
 			});
 		},
-		
+
 		"focus input": function(){
 			if (! $("#hider").hasClass("hidden")){
 				$("#hider").addClass("hidden");
@@ -31,7 +36,7 @@ if (Meteor.isClient) {
 				password: event.target.password.value
 			});
 		},
-		
+
 		"focus input": function(){
 			if (! $("#hider").hasClass("hidden")){
 				$("#hider").addClass("hidden");

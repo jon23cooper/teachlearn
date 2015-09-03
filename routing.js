@@ -16,7 +16,11 @@ Router.onBeforeAction(function() {
         console.log("Not logged in");
     } else {
         console.log("Logged in as:" + Meteor.userId())
-        this.next();
+        if (Meteor.user().forcePwdChange){
+          this.render('changePwd');
+        } else {
+          this.next();
+        }
     }
 });
 
@@ -38,6 +42,10 @@ Router.onBeforeAction(function() {
 
 Router.route("/analysis", {
   template: 'summary'
+});
+
+Router.route("/changePwd",{
+  template: 'changePwd'
 });
 
  Router.route("/subjects", {

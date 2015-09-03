@@ -1,3 +1,16 @@
+Meteor.startup(function(){
+  if (Meteor.users.find({}).count() == 0){
+    Accounts.createUser(
+      {
+        username: 'jon.cooper',
+        email: 'jon.cooper@robertsutton.staffs.sch.uk',
+        password: '734ch134rn',        
+        profile:{isAdmin: true, forcePwdChange: true,},
+      }
+    );
+  }
+});
+
 
 
 if (Meteor.isServer){
