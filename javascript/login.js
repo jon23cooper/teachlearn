@@ -1,5 +1,6 @@
 if (Meteor.isClient) {
 
+
 	Template.login.events({
 		"submit form": function(event){
 			event.preventDefault();
@@ -28,13 +29,42 @@ if (Meteor.isClient) {
 		}
 	});
 
-	Template.createUser.events({
+	var ErrorMessage = new ReactiveVar('');
+
+	Template.usernameExists.helpers({
+		errorMessage: function(){
+			return 'Error! ' + ErrorMessage.get();
+		}
+	})
+
+	Template.addUser.helpers({
+		showModal: function(){
+			return modalDialog.get();
+		},
+
+	});
+
+	Template.addUser.events({
 		"submit form": function(event){
 			event.preventDefault();
-			Accounts.createUser({
-				username: event.target.username.value,
-				password: event.target.password.value
-			});
+			Meteor.call('addUser',
+				event.target.username.value,
+				event.target.password.value,
+				function(err, result){
+					if (err){
+						if (err.error == 403){
+							//username already exists
+							ErrorMessage.set(err.message);
+							$("#error"+err.error).removeClass('hidden');
+						}
+						console.log(err);
+					} else {
+						//show modal
+						$(".modal").modal('show');
+
+					}
+				}
+			);
 		},
 
 		"focus input": function(){
@@ -43,8 +73,8 @@ if (Meteor.isClient) {
 			}
 		}
 	});
-	
-	
+
+
 	Template.changePwd.events({
 		"submit form": function(event){
 			event.preventDefault();
@@ -62,7 +92,7 @@ if (Meteor.isClient) {
 				$("#noChange").removeClass("hidden");
 			} else {
 				Accounts.changePassword(
-					event.target.current.value, 
+					event.target.current.value,
 					event.target.new1.value
 				, function(err){
 					if (err){
@@ -72,7 +102,7 @@ if (Meteor.isClient) {
 						console.log("Remove need for password change");
 						Meteor.call('removeForcePwdChange');
 						Router.go('/main');
-						
+
 					}
 				});
 			}

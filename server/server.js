@@ -4,7 +4,7 @@ Meteor.startup(function(){
       {
         username: 'jon.cooper',
         email: 'jon.cooper@robertsutton.staffs.sch.uk',
-        password: '734ch134rn',        
+        password: '734ch134rn',
         profile:{isAdmin: true, forcePwdChange: true,},
       }
     );
@@ -60,6 +60,30 @@ if (Meteor.isServer){
 
 Meteor.methods({
 
+	updatePeriods: function(teacherId, value){
+		if (!Meteor.userId()){
+			throw new Meteor.Error("not authorized");
+		} else {
+			Teachers.update(teacherId, {$set: {periods: value}});
+		}
+	},
+
+	addSubject: function(subject){
+		if (!Meteor.userId()){
+			throw new Meteor.Error("not authorized");
+		} else {
+			Subjects.insert({_id: subject});
+		}
+	},
+
+	deleteSubject: function(subject){
+		if (!Meteor.userId()){
+			throw new Meteor.Error("not authorized");
+		} else {
+			Subjects.remove({_id: subject});
+		}
+	},
+
 	addTeacher: function(teacher){
 		//Make sure the user is logged in before adding a teacher
 		if (!Meteor.userId()){
@@ -93,27 +117,28 @@ Meteor.methods({
 
 	},
 
-	updatePeriods: function(teacherId, value){
+	addUser: function(username, password){
 		if (!Meteor.userId()){
-			throw new Meteor.Error("not authorized");
+			throw new Meteor.Error("Not authorized");
 		} else {
-			Teachers.update(teacherId, {$set: {periods: value}});
-		}
-	},
-
-	addSubject: function(subject){
-		if (!Meteor.userId()){
-			throw new Meteor.Error("not authorized");
-		} else {
-			Subjects.insert({_id: subject});
-		}
-	},
-
-	deleteSubject: function(subject){
-		if (!Meteor.userId()){
-			throw new Meteor.Error("not authorized");
-		} else {
-			Subjects.remove({_id: subject});
+			if (Meteor.user().profile.isAdmin){
+				Accounts.createUser({
+					username: username,
+					password: password,
+					profile: {
+						isAdmin: false,
+						forcePwdChange: true
+					}
+				});
+        if (Meteor.users.find({username: username}).count() == 1){
+          console.log("found user" + username);
+          return "found user";
+        } else {
+          throw new Meteor.console.error("Failed to create user");
+        }
+			} else {
+				throw new Meteor.Error("Not authorized");
+			}
 		}
 	},
 
@@ -125,7 +150,7 @@ Meteor.methods({
 			Teachers.update(teacherId, {$push:{observations: observation}, $set:{obsCount: obsCount+1}});
 		}
 	},
-	
+
 	removeForcePwdChange: function(){
 		console.log("Is there a user?");
 		if (Meteor.userId()){

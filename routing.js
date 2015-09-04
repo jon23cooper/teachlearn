@@ -1,7 +1,6 @@
 // Configure Global
 
 
-
 ////////////////
 // BeforeHooks
 ////////////////
@@ -9,7 +8,39 @@
 // (Global) Before hooks for any route
 // only allow access to login page for non-logged in users
 
+var IR_BeforeHooks ={
+  isUser: function(){
+    if (!(Meteor.user())){
+      this.render('login');
+      this.stop();
+    } else {
+      this.next();
+    }
+  },
 
+  mustChangePwd: function(){
+      if (Meteor.user().profile.forcePwdChange){
+        this.render('changePwd');
+        pause();
+      } else {
+        this.next()
+      }
+  },
+
+  isAdmin: function(){
+    if (!Meteor.user().profile.isAdmin){
+      this.render('unauthorised');
+    } else {
+      this.next();
+    }
+  },
+}
+
+Router.onBeforeAction(IR_BeforeHooks.isUser, {except: ['login']});
+Router.onBeforeAction(IR_BeforeHooks.mustChangePwd);
+Router.onBeforeAction(IR_BeforeHooks.isAdmin, {only: ['addUser']});
+
+/*
 Router.onBeforeAction(function() {
     if (Meteor.user()){
       console.log("Is meteor user");
@@ -18,6 +49,7 @@ Router.onBeforeAction(function() {
         this.render('changePwd');
       } else {
         console.log("doesn't have to change password")
+
         this.next();
       }
     } else {
@@ -25,25 +57,8 @@ Router.onBeforeAction(function() {
       this.render('login');
     }
 
-    /*
-    if (!Meteor.userId()){
-        this.render('login');
-        console.log("Not logged in");
-    } else {
-        if (Meteor.user()){
-          if (Meteor.user().profile.forcePwdChange){
-          this.render('changePwd');
-          this.stop();
-          } else {
-            this.next();
-          }
-        } else {
-          this.next();
-        }
-    }
-    */
 });
-
+*/
 
 
 /************* ROUTES *********************************************************/
@@ -58,6 +73,10 @@ Router.onBeforeAction(function() {
 
  Router.route("/",{
    template: 'main'
+ });
+
+ Router.route("/addUser", {
+   template: 'addUser'
  });
 
 Router.route("/analysis", {

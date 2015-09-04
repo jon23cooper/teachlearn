@@ -25,8 +25,9 @@
 	</div>
 </template>
 
-<template name="createUser">
-	<h1>Welcome to Lesson Observation Recorder</h1>
+<template name="addUser">
+	{{> addedUserModal}}
+	<h1>Add New User</h1>
 	<div class="panel panel-primary login">
 		<div class="panel-heading">
 			<h3 class="panel-title">Create User</h3>
@@ -41,8 +42,35 @@
 					<label for="password">Password:</label>
 					<input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required />
 				</div>
+				{{> usernameExists}}
 				<input type="submit" value="Create"/>
 			</form>
+		</div>
+	</div>
+</template>
+
+<template name="addedUserModal">
+	<div class="modal fade" id="addedUserModal" tabindex="-1" role="dialog" aria-labelledby="addedUserModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="close">
+						<span aria-hidden=true>&times;</span>
+					</button>
+					<h4 class="modal-title" id="addedUserModalLabel"> New User Created</h4>
+				</div><!-- /modal-header -->
+				<div class="modal-body">
+					<p> A new user has been created:</p>
+				</div><!-- /modal-body -->
+			</div><!-- /modal-content -->
+		</div><!-- /modal-dialog -->
+	</div><!-- /modal-fade -->
+</template>
+
+<template name="usernameExists">
+	<div id="error403" class="hidden">
+		<div class="alert alert-danger" role="alert">
+			{{errorMessage}}
 		</div>
 	</div>
 </template>
