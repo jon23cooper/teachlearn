@@ -11,17 +11,37 @@
 
 
 Router.onBeforeAction(function() {
+    if (Meteor.user()){
+      console.log("Is meteor user");
+      if (Meteor.user().profile.forcePwdChange){
+        console.log("must change password");
+        this.render('changePwd');
+      } else {
+        console.log("doesn't have to change password")
+        this.next();
+      }
+    } else {
+      console.log("Is not meteor user");
+      this.render('login');
+    }
+
+    /*
     if (!Meteor.userId()){
         this.render('login');
         console.log("Not logged in");
     } else {
-        console.log("Logged in as:" + Meteor.userId())
-        if (Meteor.user().forcePwdChange){
+        if (Meteor.user()){
+          if (Meteor.user().profile.forcePwdChange){
           this.render('changePwd');
+          this.stop();
+          } else {
+            this.next();
+          }
         } else {
           this.next();
         }
     }
+    */
 });
 
 

@@ -125,4 +125,13 @@ Meteor.methods({
 			Teachers.update(teacherId, {$push:{observations: observation}, $set:{obsCount: obsCount+1}});
 		}
 	},
+	
+	removeForcePwdChange: function(){
+		console.log("Is there a user?");
+		if (Meteor.userId()){
+			Meteor.users.update({_id: Meteor.userId},{$set:{'profile.forcePwdChange': false}});
+		} else {
+			throw new Meteor.error("Not authorized");
+		}
+	},
 });

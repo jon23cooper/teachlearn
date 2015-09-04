@@ -60,10 +60,29 @@
 					<input type="password" class="form-control" id="current" name="current" placeholder="Enter current password" required />
 				</div>
 				<div class="form-group">
-					<label for="newPassword">Password:</label>
-					<input type="password" class="form-control" id="new1" name="new1" placeholder="Enter new password" required />
+					<label for="newPassword1">New Password:</label>
+					<input type="password" class="form-control" id="newPassword1" name="new1" placeholder="Enter new password .." required />
 				</div>
-				<input type="submit" value="Create"/>
+				<div class="form-group">
+					<label for="newPassword2">Re-enter new password:</label>
+					<input type="password" class="form-control" id="newPassword2" name="new2" placeholder="Enter new password .." required />
+				</div>
+				<div>
+					<input type="submit"  class="form-control" id="submitBtn" value="Change" name="Change" placeholder="Enter new password again .." required/>
+					<div id="hider" class="hidden">
+						<div class="alert alert-danger" role="alert">
+							<span id="noPwdMatch" class="hidden">
+								<strong>Error!</strong> Passwords do not match. Please try again.
+							</span>
+							<span id="incorrectPwd" class="hidden">
+								<strong>Error!</strong> Incorrect Password. Please try again.
+							</span>
+							<span id="noChange" class="hidden">
+								<strong>Error!</strong> Your new password cannot be the same as the old one.
+							</span>
+						</div>
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
