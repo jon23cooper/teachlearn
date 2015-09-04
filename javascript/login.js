@@ -12,7 +12,7 @@ if (Meteor.isClient) {
 						$("#hider").removeClass("hidden");
 						console.log(error.reason);
 					} else {
-            console.log('Meteor.user()');
+            console.log(Meteor.user());
             if (Meteor.user().profile.forcePwdChange){
               Router.go('changePwd');
             } else {

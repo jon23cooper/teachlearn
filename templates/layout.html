@@ -48,6 +48,7 @@
               <li class="active">
                 <a href="{{pathFor route='teachers'}}"> Teachers </a>
               </li>
+              {{#if currentUser.profile.isAdmin}}
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                   role="button" aria-haspopup="true" aria-expanded="false">
@@ -58,6 +59,7 @@
                   <li><a href="{{pathFor route='addUser'}}">Add</a></li>
                 </ul>
               </li>
+              {{/if}}
             </ul>
             <ul class="nav navbar-nav navbar-right">
               {{#if currentUser}}

@@ -152,9 +152,10 @@ Meteor.methods({
 	},
 
 	removeForcePwdChange: function(){
-		console.log("Is there a user?");
-		if (Meteor.userId()){
-			Meteor.users.update({_id: Meteor.userId},{$set:{'profile.forcePwdChange': false}});
+		console.log("Is there a user? " + this.userId);
+		if (this.userId){
+      console.log("changing need to change pwd for " + Meteor.user().name);
+			Meteor.users.update({_id: this.userId},{$set:{'profile.forcePwdChange': false}});
 		} else {
 			throw new Meteor.error("Not authorized");
 		}

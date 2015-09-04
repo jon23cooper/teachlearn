@@ -8,26 +8,33 @@
 // (Global) Before hooks for any route
 // only allow access to login page for non-logged in users
 
+
 var IR_BeforeHooks ={
-  isUser: function(){
+  isLoggingIn: function(pause){
+    if (!Meteor.loggingIn()){
+      this.next();
+    } else {
+      this.render('login');
+    }
+  },
+
+  isUser: function(pause){
     if (!(Meteor.user())){
       this.render('login');
-      this.stop();
     } else {
       this.next();
     }
   },
 
-  mustChangePwd: function(){
+  mustChangePwd: function(pause){
       if (Meteor.user().profile.forcePwdChange){
         this.render('changePwd');
-        pause();
       } else {
         this.next()
       }
   },
 
-  isAdmin: function(){
+  isAdmin: function(pause){
     if (!Meteor.user().profile.isAdmin){
       this.render('unauthorised');
     } else {
@@ -35,30 +42,10 @@ var IR_BeforeHooks ={
     }
   },
 }
-
+Router.onBeforeAction(IR_BeforeHooks.isLoggingIn, {except: ['login']});
 Router.onBeforeAction(IR_BeforeHooks.isUser, {except: ['login']});
 Router.onBeforeAction(IR_BeforeHooks.mustChangePwd);
 Router.onBeforeAction(IR_BeforeHooks.isAdmin, {only: ['addUser']});
-
-/*
-Router.onBeforeAction(function() {
-    if (Meteor.user()){
-      console.log("Is meteor user");
-      if (Meteor.user().profile.forcePwdChange){
-        console.log("must change password");
-        this.render('changePwd');
-      } else {
-        console.log("doesn't have to change password")
-
-        this.next();
-      }
-    } else {
-      console.log("Is not meteor user");
-      this.render('login');
-    }
-
-});
-*/
 
 
 /************* ROUTES *********************************************************/
