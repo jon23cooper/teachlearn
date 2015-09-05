@@ -1,17 +1,70 @@
 <template name="main">
-  {{> navbar}}
-  <div class="content-fluid">
-    <div class="col-md-2"></div>
-    <div class="col-md-2">
-        <a class="btn btn-primary btn-lg" href="#" role="button" id="teacherBtn">Teachers</a>
-    </div>
+  <div class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-2">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Admin</a>
-    </div>
-  </div>
+      <div class="col-md-10">
+        {{> navbar}}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a href="{{pathFor route='analysis'}}">Analysis</a>
+            </h3>
+          </div><!-- /panel-heading -->
+          <div class="panel-body">
+            Display a table showing the weighted percentage of lessons for each subject at each grade.
+          </div><!-- /panel-body -->
+        </div><!-- /panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <a href="{{pathFor route='observations'}}">Observations</a>
+            </h3>
+          </div><!-- /panel-heading -->
+            <ul class="list-group">
+              <li class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <small>Observations</small>
+                </h4>
+                <p class="list-group-item-text">A list of all observations</p>
+              </li>
+              <li class="list-group-item">
+                <h4 class="list-group-item-heading">
+                  <small>Add Observations</small>
+                </h4>
+                <p class="list-group-item-text">
+                    Observations can be added using either the
+                    <a href="pathFor route='teachers'">Teachers</a> page or
+                    the Observations - Add submenu
+                </p>
+              </li>
+            </ul>
+        </div><!-- /panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Subjects</h3>
+          </div>
+          <div class="panel-body">
+            Add, delete and browse the subjects which can have observations recorded about them.
+          </div>
+        </div><!-- /panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Teachers</h3>
+          </div>
+          <div class="panel-body">
+            Add, delete and browse list of teachers.
+            Add observations for teachers.
+          </div>
+        </div><!-- /panel -->
+        {{#if currentUser.profile.isAdmin}}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Users</h3>
+          </div>
+          <div class="panel-body">
+            <p>Add new users</p>
+          </div>
+        </div><!--/panel -->
+        {{/if}}
+    </div><!-- /col-md-10 -->
+  </div><!-- /row -->
 </template>
-
-
-
-
