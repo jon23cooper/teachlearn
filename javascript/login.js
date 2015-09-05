@@ -59,9 +59,10 @@ if (Meteor.isClient) {
 						}
 						console.log(err);
 					} else {
-						//show modal
+						//show modal clear fields
 						$(".modal").modal('show');
-
+						event.target.username.value="";
+						event.target.password.value="";
 					}
 				}
 			);

@@ -36,7 +36,7 @@ var IR_BeforeHooks ={
 
   isAdmin: function(pause){
     if (!Meteor.user().profile.isAdmin){
-      this.render('unauthorised');
+      this.render('404');
     } else {
       this.next();
     }
@@ -101,7 +101,13 @@ Router.route("/observations", {
    },
    data: function(){
      return this.params.id;
-   }
+   },
  });
+
+// Catch any other routes and send them to 404 not found.
+ Router.route('/(.*)',{
+   name: 'notfound',
+   template: '404'
+ })
 
 /***************************** END ROUTES *************************************/
