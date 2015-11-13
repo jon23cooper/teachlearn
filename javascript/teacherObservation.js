@@ -49,7 +49,20 @@ if (Meteor.isClient){
                 grade: grade
             }
             Meteor.call("addObservation", teacherId, observation);
-        }
+        },
+        "click #edit": function(event){
+          event.preventDefault();
+          console.log("button clicked");
+          <!-- NEEDS TO BE DONE -->
+        },
+        "click #delete": function(event){
+          console.log("Deleting");
+          // this = current observation
+
+          console.log("this:" + this);
+          console.log("id:" + Template.parentData(1));
+          Meteor.call("deleteObservation", Template.parentData(1), this);
+        },
     });
 
 
