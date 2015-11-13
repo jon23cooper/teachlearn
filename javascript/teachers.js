@@ -7,9 +7,9 @@ if (Meteor.isClient){
     this.subscribe('teachers');
 
   });
-  
+
   /******* HELPERS  ****************************************************/
-  
+
 /***********************END TEMPLATE teacher  *************************/
 
 /*******************  TEMPLATE addTeacher  *****************************/
@@ -82,36 +82,38 @@ if (Meteor.isClient){
       }
     }
   });
-  
-  /****************  TEMPLATE listTeachers  *****************************/ 
+
+  /****************  TEMPLATE listTeachers  *****************************/
 
   //creates a table and pulls in teachers from MongoDb.
-  // responsive table parts are all part of teacher TEMPLATE 
+  // responsive table parts are all part of teacher TEMPLATE
     /***** HELPERS ****************** */
     Template.listTeachers.helpers({
       teachers: function(){
         return Teachers.find({});
       }
     });
-    
+
 
   /***********************  END TEMPLATE listTeachers  ********************/
-    
+
     /************************  TEMPLATE teacher ****************************/
     //Responsive part of listTeachers table that is repeated for each teacher
     Template.teacher.onCreated(function(){
       initialSetting = true;
     });
-    
+
     /******HELPERS ************************/
     Template.teacher.helpers({
-      
+      obs: function(){
+        return this.observations.length;
+      }
     });
     /******EVENTS ************************/
     Template.teacher.events({
       //Events listed left to right
-    /********* Editing Name Cell  ****************************/ 
-       
+    /********* Editing Name Cell  ****************************/
+
       //////////////////////////////////////////////////////
       //
       // Name cell can be edited when double clicked
@@ -119,7 +121,7 @@ if (Meteor.isClient){
       // Pressing enter when in name cell input will end editing
       //
       /////////////////////////////////////////////////////////////
-      
+
       ////////////////////////////////////////////////////////////////////
       // Double click starts editing
       // An input text box is add to the cell containing the current name
@@ -135,12 +137,12 @@ if (Meteor.isClient){
         nameEdit.focus();
         nameEdit.select();
       },
-      
+
       ////////////////////////////////////////////////////////////////////
       //Stop editing when user clicks outside of the name input
       //Saves new name to MongoDb
       // If the name hasn't changed then it is put back into the cell
-      // this is because Meteor notices the name hasn't changed and so 
+      // this is because Meteor notices the name hasn't changed and so
       // doesn't expect to have to replace it (
       ////////////////////////////////////////////////////////////////////
       "blur input#nameEdit": function(event){
@@ -152,12 +154,12 @@ if (Meteor.isClient){
           event.target.remove();
         }
       },
-      
+
       ////////////////////////////////////////////////////////////////////
       //Stop editing when user presses enter in the name input
       //Saves new name to MongoDb
       // If the name hasn't changed then it is put back into the cell
-      // this is because Meteor notices the name hasn't changed and so 
+      // this is because Meteor notices the name hasn't changed and so
       // doesn't expect to have to replace it (
       ////////////////////////////////////////////////////////////////////
       "keydown input#nameEdit": function(event){
@@ -167,14 +169,14 @@ if (Meteor.isClient){
             event.target.remove();
           } else {
             Meteor.call("updateTeacher", this._id, "name", event.target.value.trim());
-            event.target.remove(); 
+            event.target.remove();
           }
         }
       },
-    /*************** END Editing Name Cell *********************************************/ 
-    
-    /*************** Editing Periods Cell **********************************************/ 
-    
+    /*************** END Editing Name Cell *********************************************/
+
+    /*************** Editing Periods Cell **********************************************/
+
     //////////////////////////////////////////////////////
     //
     // Periods cell can be edited when double clicked
@@ -182,7 +184,7 @@ if (Meteor.isClient){
     // Pressing enter when in periods cell input will end editing
     //
     /////////////////////////////////////////////////////////////
-    
+
     ////////////////////////////////////////////////////////////////////
     // Double click starts editing
     // An input number box is added to the cell containing the current number of periods
@@ -191,14 +193,14 @@ if (Meteor.isClient){
     //  used to test for this event
     //
     ///////////////////////////////////////////////////////////////////
-    
 
-    
+
+
     "dblclick td#periods": function(event){
       var currentPeriods = event.target.textContent;
       event.target.textContent = "";
       var numberInput = document.createElement('input');
-      var inputElem = event.target.appendChild(numberInput);    
+      var inputElem = event.target.appendChild(numberInput);
       inputElem.type="number";
       inputElem.min=1;
       inputElem.max=60;
@@ -206,23 +208,23 @@ if (Meteor.isClient){
       inputElem.focus();
       inputElem.select();
     },
-    
+
     ////////////////////////////////////////////////////////////////////
     //Stop editing when user clicks outside of the periods input
     //Saves new period number to MongoDb
     //
     // If the number of periods hasn't changed then it is put back into the cell
-    // this is because Meteor notices the number of periods hasn't changed and so 
+    // this is because Meteor notices the number of periods hasn't changed and so
     // doesn't expect to have to replace it (
     ////////////////////////////////////////////////////////////////////
-    
-    
+
+
     "blur td#periods": function(event){
-      
+
     //  if (initialSetting == true){
         if (event.target.value == this.periods){
           event.target.parentElement.textContent = this.periods;
-          event.target.remove();  
+          event.target.remove();
         } else {
           Meteor.call("updateTeacher", this._id, "periods", event.target.value);
           event.target.remove();
@@ -231,42 +233,42 @@ if (Meteor.isClient){
      //   console.log("not intial setting")
     //  }
     },
-    
+
     ////////////////////////////////////////////////////////////////////
     //Stop editing when user presses enter in the periods input
     //Saves new period number to MongoDb
     //
     // If the number of periods hasn't changed then it is put back into the cell
-    // this is because Meteor notices the number of periods hasn't changed and so 
+    // this is because Meteor notices the number of periods hasn't changed and so
     // doesn't expect to have to replace it (
     ////////////////////////////////////////////////////////////////////
-    
+
     "keydown td#periods": function(event){
       if (event.which == 13){
         if (event.target.value == this.periods){
           event.target.parentElement.textContent = this.periods;
-          event.target.remove();  
+          event.target.remove();
         } else {
           Meteor.call("updateTeacher", this._id, "periods", event.target.value);
           event.target.remove();
         }
       }
     },
-    
+
     /***********************  END EDITING Periods Cell  ****************************/
-    
+
     /***********************  CLICK Observation Number Cell  ***********************/
-    
+
     /////////////////////////////////////////
     //
     //  To be done
     //
     /////////////////////////////////////////
-    
+
     /************************ END CLICK Observation Number Cell  *********************/
-    
+
     /************************  CLICK Delete Teacher Cell  ****************************/
-    
+
     //////////////////////////////////////////////
     //
     //  Click on delete button deletes Teacher
@@ -275,30 +277,30 @@ if (Meteor.isClient){
     //  Needs to warn of such *****  TO BE ADDED ****
     //
     ///////////////////////////////////////////////////////
-    
+
     "click #delete": function(event){
       Meteor.call("deleteTeacher", this._id);
     },
-    
+
     /*************************  END CLICK Delete Teacher Cell *************************/
-    
+
     /************************* CLICK Add Obs Button  **********************************/
-    
+
     ///////////////////////////////////////////////////////
-    // 
-    // Click on Add Obs Button 
-    // 
+    //
+    // Click on Add Obs Button
+    //
     // Go to Add Obs Page for chosen teacher
     //
     ///////////////////////////////////////////////////////
-    
+
     "click #addObs": function(event){
         event.preventDefault();
         console.log("add obs clicked");
         Router.go("/addObservation/" + this._id);
      },
-      
-      
-    }); 
-  
+
+
+    });
+
 }
