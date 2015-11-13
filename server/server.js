@@ -146,10 +146,16 @@ Meteor.methods({
 		if (!Meteor.userId()){
 			throw new Meteor.Error("not authorized");
 		} else {
-			var obsCount = Teachers.find({_id: teacherId}, {observations: true, _id: false}).fetch()[0].observations.length
-			Teachers.update(teacherId, {$push:{observations: observation}, $set:{obsCount: obsCount+1}});
+			Teachers.update(teacherId, {$push:{observations: observation}});
 		}
 	},
+  deleteObservation: function(teacherId, observation){
+    if (!Meteor.userId()){
+      throw new Meteor.Error("not authorized");
+    } else {
+      Teachers.update({_id: teacherId}, {$pull:{observations: observation}});
+    }
+  },
 
 	removeForcePwdChange: function(){
 		console.log("Is there a user? " + this.userId);
