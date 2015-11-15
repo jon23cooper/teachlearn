@@ -12,7 +12,7 @@ if (Meteor.isClient){
 			var observations =[];
 			teachersArray.forEach(function(teacher, idx){
 				teacher.observations.forEach(function(obs, i){
-					observations.push({"teacher": teacher._id, "obs": obs});
+					observations.push({"teacher": teacher.code, "obs": obs});
 				});
 			});
       if (Template.instance().filter.get().length != 0){

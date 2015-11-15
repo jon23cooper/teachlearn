@@ -24,11 +24,10 @@ if (Meteor.isClient){
       var name=event.target.addName.value;
       var periods=event.target.addPeriods.value;
       console.log(id + ", " + name + ", " + periods);
-      var teacher = {_id: id,
+      var teacher = {code: id,
         name: name,
         periods: periods,
         observations: [],
-        obsCount: 0
       };
       if (Teachers.findOne({_id: id})){
         $("#alertText").text("");
@@ -90,7 +89,7 @@ if (Meteor.isClient){
     /***** HELPERS ****************** */
     Template.listTeachers.helpers({
       teachers: function(){
-        return Teachers.find({});
+        return Teachers.find({}, {sort:{code: true}});
       }
     });
 
@@ -127,15 +126,16 @@ if (Meteor.isClient){
       // An input text box is add to the cell containing the current name
       // The input is given focus and the text selected
       ///////////////////////////////////////////////////////////////////
-      "dblclick td#name": function(event){
-        var currentName = event.target.textContent;
-        var nameEdit = document.createElement("input");
-        nameEdit.value = currentName.trim();
-        nameEdit.id = "nameEdit";
+      "dblclick td#name, dblclick td#code": function(event){
+        var currentValue = event.target.textContent;
+        var valueEdit = document.createElement("input");
+        valueEdit.value = currentValue.trim();
+        valueEdit.id = event.target.id + "Edit";
+        console.log("Created input: " + valueEdit.id);
         event.target.textContent="";
-        var inputElem = event.target.appendChild(nameEdit);
-        nameEdit.focus();
-        nameEdit.select();
+        var inputElem = event.target.appendChild(valueEdit);
+        valueEdit.focus();
+        valueEdit.select();
       },
 
       ////////////////////////////////////////////////////////////////////
@@ -145,14 +145,21 @@ if (Meteor.isClient){
       // this is because Meteor notices the name hasn't changed and so
       // doesn't expect to have to replace it (
       ////////////////////////////////////////////////////////////////////
-      "blur input#nameEdit": function(event){
-        if (this.name == event.target.value.trim()) {
-          event.target.parentElement.textContent = this.name;
-          event.target.remove();
+      "blur input#codeEdit, blur input#nameEdit": function(event){
+        if (event.target.id == "nameEdit"){
+          if (this.name == event.target.value.trim()) {
+            event.target.parentElement.textContent = this.name;
+          } else {
+            Meteor.call("updateTeacher", this._id, "name", event.target.value.trim());
+          }
         } else {
-          Meteor.call("updateTeacher", this._id, "name", event.target.value.trim());
-          event.target.remove();
+            if (this.code == event.target.value.trim()){
+              event.target.parentElement.textContent = this.code;
+            } else {
+              Meteor.call("updateTeacher", this._id, "code", event.target.value.trim());
+            }
         }
+        event.target.remove();
       },
 
       ////////////////////////////////////////////////////////////////////
@@ -162,15 +169,22 @@ if (Meteor.isClient){
       // this is because Meteor notices the name hasn't changed and so
       // doesn't expect to have to replace it (
       ////////////////////////////////////////////////////////////////////
-      "keydown input#nameEdit": function(event){
+      "keydown input#nameEdit, keydown input#codeEdit": function(event){
         if (event.which == 13){
-          if (this.name == event.target.value.trim()) {
-            event.target.parentElement.textContent = this.name;
-            event.target.remove();
+          if (event.target.id == "nameEdit"){
+            if (this.name == event.target.value.trim()) {
+              event.target.parentElement.textContent = this.name;
+            } else {
+              Meteor.call("updateTeacher", this._id, "name", event.target.value.trim());
+            }
           } else {
-            Meteor.call("updateTeacher", this._id, "name", event.target.value.trim());
-            event.target.remove();
+            if (this.code == event.target.value.trim()){
+              event.target.parentElement.textContent = this.code;
+            } else {
+              Meteor.call("updateTeacher", this._id, "code", event.target.value.trim());
+            }
           }
+          event.target.remove();
         }
       },
     /*************** END Editing Name Cell *********************************************/

@@ -91,7 +91,7 @@ Meteor.methods({
 		} else {
 			//make all teacher ids (SIMS Ids) uppercase
 			// because they should be!
-			teacher._id = teacher._id.toUpperCase();
+			teacher.code = teacher.code.toUpperCase();
 			Teachers.insert(teacher);
 		}
 	},

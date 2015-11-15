@@ -46,7 +46,8 @@ if (Meteor.isClient){
                 observer: observer,
                 subject: subject,
                 yearGroup: yearGroup,
-                grade: grade
+                grade: grade,
+                periods: this.periods
             }
             Meteor.call("addObservation", teacherId, observation);
         },

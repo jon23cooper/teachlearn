@@ -79,10 +79,10 @@
 
 <template name="teacher">
   <tr>
-    <td id="_id" disabled="disabled">{{_id}}</td>
+    <td id="code" class="editable text">{{code}}</td>
     <td class="editable" id="name" data-toggle="tooltip" title="Double-click to edit">
       {{name}}</td>
-    <td class="editable centered" id="periods" >{{periods}}</td>
+    <td class="editable text centered" id="periods" >{{periods}}</td>
     <td class="centered">
       <button id="addObs" class="btn btn-default">
         Observations <span class="badge">{{obs}}</span>
