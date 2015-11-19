@@ -105,7 +105,11 @@ if (Meteor.isClient){
     /******HELPERS ************************/
     Template.teacher.helpers({
       obs: function(){
-        return this.observations.length;
+        if (typeof this.observations==="undefined"){
+          return null;
+        } else {
+          return this.observations.length;
+        }
       }
     });
     /******EVENTS ************************/
