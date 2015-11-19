@@ -32,7 +32,11 @@
             </div>
             <div class="form-group">
               <label for="grade">Choose Grade</label>
-              <select id="gradeSelect" name="gradeSelect" class="form-control"></select>
+              <select id="gradeSelect" name="gradeSelect" class="form-control">
+                {{#each lessonGrades}}
+                <option value={{this}} > {{this}} </option>
+                {{/each}}
+              </select>
             </div>
             <input type="submit" name="Save" class="form-control"/>
           </form>
@@ -56,6 +60,7 @@
               </tr>
             </thead>
             <tbody>
+              {{> editObservationModal}}
               {{#each observations}}
                 {{> observation}}
               {{/each}}
@@ -68,7 +73,7 @@
 </template>
 
 <template name="subject_name">
-    <option value={{ _id }} > {{ _id }} </option>
+    <option value = {{ _id }} > {{ _id }} </option>
 </template>
 
 <template name="observation">
@@ -89,4 +94,61 @@
       </button>
     </td>
   </tr>
+
+</template>
+
+<!-- Modal -->
+<template name="editObservationModal">
+
+  <div id="editObsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Observation</h4>
+        </div>
+        <div class="modal-body">
+          <div class="panel-body">
+            <form name="editObs" class="form-inline" id="editObsForm">
+              <div class="form-group">
+                <label for="obsDate">Observation date</label>
+                <input type="date" name="obsDate" id="editObsDate" class="form-control" value={{date}} required />
+              </div>
+              <div class="form-group">
+                <label for="observer">Observer(s)</label>
+                <input type="text" name="observer" id="editObserver" class="form-control" placeholder="Enter code(s) for observer(s)" value={{observer}} />
+              </div>
+              <div class="form-group">
+                <label for="editSubject">Choose subject</label>
+                <select id="editSubject" name="editSubject" class="form-control">
+                  {{#each subjects}}
+                  {{> subject_name}}
+                  {{/each}}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="yearGroup">Choose Year Group</label>
+                <input class="form-control" type="number" id="editYearGroup" name="editYearGroup" min=7 max=13 value={{yearGroup}} />
+              </div>
+              <div class="form-group">
+                <label for="grade">Choose Grade</label>
+                <select id="editGrade" name="editGrade" class="form-control">
+                  {{#each grades}}
+                  <option value={{this}}>{{this}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <input type="submit" name="Save" class="form-control"/>
+            </form>
+          </div> <!-- panel-body -->
+
+        </div> <!-- modal-body -->
+      </div> <!-- modal content -->
+
+    </div> <!-- modal-dialog -->
+  </div> <!-- editObsModal -->
+
 </template>

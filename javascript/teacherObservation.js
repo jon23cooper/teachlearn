@@ -5,21 +5,6 @@ if (Meteor.isClient){
 
     });
 
-    Template.teacherObservation.onRendered(function(){
-
-        lessonGrades=["1a", "1b", "1c", "2a", "2b", "2c", "3a", "3b", "3c", "4a", "4b", "4c"];
-        var fragment = document.createDocumentFragment();
-        lessonGrades.forEach(function(grade, index){
-           var option = document.createElement('option');
-           option.innerHTML=grade;
-           option.value=grade;
-           fragment.appendChild(option);
-        });
-        var gradeSelect=this.find("#gradeSelect");
-        gradeSelect.appendChild(fragment);
-
-    });
-
     Template.teacherObservation.helpers({
         teacher: function(){
             return Teachers.find({_id: this.toString()});
@@ -27,7 +12,9 @@ if (Meteor.isClient){
         subjects: function(){
             return Subjects.find({}, {sort:{_id:1}});
         },
-
+        lessonGrades: function(){
+          return ["1a", "1b", "1c", "2a", "2b", "2c", "3a", "3b", "3c", "4a", "4b", "4c"];
+        }
 
     });
 
@@ -42,6 +29,7 @@ if (Meteor.isClient){
             var yearGroup = event.target.yearGroup.value;
             var grade = event.target.gradeSelect.value;
             var observation = {
+                _id: Random.id(),
                 date: obsDate,
                 observer: observer,
                 subject: subject,
@@ -53,17 +41,57 @@ if (Meteor.isClient){
         },
         "click #edit": function(event){
           event.preventDefault();
-          console.log("button clicked");
-          <!-- NEEDS TO BE DONE -->
+          this.teacherId = Template.parentData(1);
+          Modal.show("editObservationModal", this);
+          console.log("Editing: " + Template.parentData(1));
+          $("#editSubject option[value='" + this.subject + "']").prop('selected', true);
+          $("#editGrade option[value='" + this.grade + "']").prop('selected', true);
         },
         "click #delete": function(event){
           console.log("Deleting");
           // this = current observation
 
           console.log("this:" + this);
-          console.log("id:" + Template.parentData(1));
+
           Meteor.call("deleteObservation", Template.parentData(1), this);
         },
+    });
+
+    Template.editObservationModal.helpers({
+      subjects: function(){
+          return Subjects.find({}, {sort:{_id:1}});
+      },
+      grades: function(){
+        return ["1a", "1b", "1c", "2a", "2b", "2c", "3a", "3b", "3c", "4a", "4b", "4c"];
+      }
+
+    });
+
+    Template.editObservationModal.events({
+      "submit #editObsForm": function(event){
+        event.preventDefault();
+        console.log("Observation id = " + this._id);
+        console.log("TeacherId= " + this.teacherId);
+        var observation = {
+          _id: this._id,
+          date: event.target.editObsDate.value,
+          observer: event.target.editObserver.value,
+          subject: event.target.editSubject.value,
+          yearGroup: event.target.editYearGroup.value,
+          grade: event.target.editGrade.value,
+          periods: this.periods
+        };
+
+        Meteor.call("updateObservation", this.TeacherId, observation, function(error, result) {
+          if (error) {
+            console.log("error", error);
+          }
+          if (result){
+            console.log("CHANGED");
+          }
+          });
+        }
+
     });
 
 
