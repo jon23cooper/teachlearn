@@ -82,12 +82,15 @@ if (Meteor.isClient){
           periods: this.periods
         };
 
-        Meteor.call("updateObservation", this.TeacherId, observation, function(error, result) {
+        Meteor.call("updateObservation", this.teacherId, observation, function(error, result) {
+          console.log("updating number");
+          console.log("error" + error);
+          console.log("result " + result);
           if (error) {
-            console.log("error", error);
-          }
-          if (result){
-            console.log("CHANGED");
+            Modal.show('updateErrorModal');
+          } else {
+            console.log("updated " + result + "records");
+            Modal.hide();
           }
           });
         }
