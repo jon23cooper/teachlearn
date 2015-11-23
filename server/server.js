@@ -149,6 +149,16 @@ Meteor.methods({
 			Teachers.update(teacherId, {$push:{observations: observation}});
 		}
 	},
+  updateObservation: function(teacherId, observation){
+    if (!Meteor.userId()){
+      throw new Meteor.Error("not authorized");
+    } else {
+      console.log("update " + teacherId);
+      console.log("Observation " + observation);
+      return Teachers.update({'_id':teacherId, 'observations': {$elemMatch: {'_id': observation._id}}},
+        {$set: {'observations.$': observation}});
+    }
+  },
   deleteObservation: function(teacherId, observation){
     if (!Meteor.userId()){
       throw new Meteor.Error("not authorized");
