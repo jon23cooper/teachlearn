@@ -8,13 +8,21 @@ if (Meteor.isClient){
 
 	Template.observations.helpers({
 		observations: function(){
-			var teachersArray = Teachers.find({},{$sort:{_id: 1}}).fetch();
+			var teachersArray = Teachers.find({},{$sort:{code: 1}}).fetch();
 			var observations =[];
 			teachersArray.forEach(function(teacher, idx){
 				teacher.observations.forEach(function(obs, i){
 					observations.push({"teacher": teacher.code, "obs": obs});
 				});
 			});
+      //sort by date most recent first
+      observations.sort(function(a,b){
+
+        var dateA = new Date(a.obs.date);
+        var dateB = new Date(b.obs.date);
+
+        return dateB-dateA;
+      });
       if (Template.instance().filter.get().length != 0){
         observations = observations.filter(
         function(value){
