@@ -24,7 +24,7 @@ if (Meteor.isClient) {
 
   Template.navbar.helpers({
     teacherIds: function(){
-     return Teachers.find();
+     return Teachers.find({},{sort:{'code':1}});
     }
   });
 
@@ -42,4 +42,3 @@ if (Meteor.isClient) {
 
 
 /*************************  END METEOR IS CLIENT  *****************************/
-

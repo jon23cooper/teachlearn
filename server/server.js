@@ -37,7 +37,7 @@ if (Meteor.isServer){
 
 
   Meteor.publish("teacher_ids", function(){
-    return Teachers.find({}, {fields:{_id: 1}});
+    return Teachers.find({}, {fields:{_id: 1, code:1}});
   });
 
 
